@@ -19,10 +19,14 @@ public class Styles {
      */
 
     public static final String RESET = "\u001B[0m";
+    public static final String BLACK = "\u001B[30m";
+    public static final String GREEN_BT = "\033[0;92m";
+    public static final String GREEN_BG_BT = "\033[0;102m";
+    public static final String YELLOW_BT = "\033[0;93m";
+
     private static final String CLS = "\033[H\033[2J";
     private static final String BEEP = "\007";
 
-    private static final String BLACK = "\u001B[30m";
     private static final String RED = "\u001B[31m";
     private static final String GREEN = "\u001B[32m";
     private static final String YELLOW = "\u001B[33m";
@@ -66,8 +70,6 @@ public class Styles {
 
     private static final String BLACK_BT = "\033[0;90m";
     private static final String RED_BT = "\033[0;91m";
-    public static final String GREEN_BT = "\033[0;92m";
-    public static final String YELLOW_BT = "\033[0;93m";
     private static final String BLUE_BT = "\033[0;94m";
     private static final String PURPLE_BT = "\033[0;95m";
     private static final String CYAN_BT = "\033[0;96m";
@@ -84,7 +86,6 @@ public class Styles {
 
     private static final String BLACK_BG_BT = "\033[0;100m";
     private static final String RED_BG_BT = "\033[0;101m";
-    public static final String GREEN_BG_BT = "\033[0;102m";
     private static final String YELLOW_BG_BT = "\033[0;103m";
     private static final String BLUE_BG_BT = "\033[0;104m";
     private static final String PURPLE_BG_BT = "\033[0;105m";

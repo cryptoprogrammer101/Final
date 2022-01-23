@@ -211,7 +211,7 @@ public class Main {
 		Styles.hr();
 		print(Styles.GREEN_BT + "Welcome to ");
 		print(Styles.GREEN_BG_BT + "ToDo");
-		println(Styles.GREEN_BT + ". To start, press:\n");
+		println(Styles.GREEN_BT + Styles.BLACK + ". To start, press:\n");
 		menuPrint("M", "Print menu");
 		menuPrint("P", "Print lists");
 		menuPrint("L", "Load lists");

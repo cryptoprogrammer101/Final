@@ -213,7 +213,7 @@ public class ListTools {
         Styles.hr();
         print(Styles.GREEN_BT + "Opened list ");
         print(Styles.GREEN_BG_BT + l.getName());
-        println(Styles.GREEN_BT + ". To start, press:\n");
+        println(Styles.GREEN_BT + Styles.BLACK + ". To start, press:\n");
         menuPrint("M", "Print menu");
         menuPrint("P", "Print tasks");
         menuPrint("C", "Create task");
