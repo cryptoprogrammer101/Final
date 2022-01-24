@@ -8,7 +8,9 @@ package todoey;
 // import modules
 import java.util.*;
 
-// create class
+/**
+ * Create Files class
+ */
 public class Files {
 
     /**

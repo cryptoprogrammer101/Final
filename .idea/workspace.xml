@@ -2,10 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e12e304-5542-4776-b41a-4637e9622d61" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/todoey/ColorTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/todoey/DateTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todoey/Files.class" beforeDir="false" afterPath="$PROJECT_DIR$/todoey/Files.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todoey/Files.java" beforeDir="false" afterPath="$PROJECT_DIR$/todoey/Files.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todoey/List.class" beforeDir="false" afterPath="$PROJECT_DIR$/todoey/List.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todoey/List.java" beforeDir="false" afterPath="$PROJECT_DIR$/todoey/List.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todoey/ListTools.class" beforeDir="false" afterPath="$PROJECT_DIR$/todoey/ListTools.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/todoey/ListTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/todoey/ListTools.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todoey/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/todoey/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/todoey/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/todoey/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todoey/Styles.class" beforeDir="false" afterPath="$PROJECT_DIR$/todoey/Styles.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/todoey/Styles.java" beforeDir="false" afterPath="$PROJECT_DIR$/todoey/Styles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todoey/Task.class" beforeDir="false" afterPath="$PROJECT_DIR$/todoey/Task.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todoey/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/todoey/Task.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +37,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="23QC1PsUffkIvoZbYfbXy2T1AgW" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -87,20 +100,26 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="560" y="265" key="#Inspections" timestamp="1642975592040">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="560" y="265" key="#Inspections/0.0.1920.1200@0.0.1920.1200" timestamp="1642975592040" />
     <state x="404" y="115" key="#Main_(1)" timestamp="1642078910264">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="404" y="115" key="#Main_(1)/0.0.1440.900@0.0.1440.900" timestamp="1642078910264" />
     <state x="539" y="153" key="#Main_(1)/0.0.1920.1200@0.0.1920.1200" timestamp="1641924977592" />
-    <state x="320" y="115" key="#Project_Structure" timestamp="1641657291297">
-      <screen x="0" y="23" width="1440" height="793" />
+    <state x="427" y="139" key="#Project_Structure" timestamp="1642978872698">
+      <screen x="0" y="0" width="1920" height="1200" />
     </state>
+    <state x="320" y="104" key="#Project_Structure/0.0.1440.900@0.0.1440.900" timestamp="1642963298088" />
+    <state x="427" y="139" key="#Project_Structure/0.0.1920.1200@0.0.1920.1200" timestamp="1642978872698" />
     <state x="320" y="115" key="#Project_Structure/0.23.1440.793@0.23.1440.793" timestamp="1641657291297" />
-    <state x="711" y="188" key="#com.intellij.ide.util.MemberChooser" timestamp="1642903706004">
+    <state x="711" y="188" key="#com.intellij.ide.util.MemberChooser" timestamp="1642982495697">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="533" y="141" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1641656787975" />
-    <state x="711" y="188" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1200@0.0.1920.1200" timestamp="1642903706004" />
+    <state x="711" y="188" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1200@0.0.1920.1200" timestamp="1642982495697" />
     <state x="570" y="346" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1641670936678">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

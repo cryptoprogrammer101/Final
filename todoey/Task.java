@@ -5,37 +5,34 @@
 // create package
 package todoey;
 
-// create class
+/**
+ * Create Task class
+ */
 public class Task {
 
   // create fields
   private String name;
-  private boolean starred;
   private boolean completed;
-  private String date;
-  private String color;
+  private boolean starred;
 
   /**
    * Constructor
    * @param name Name of task
    * @param completed If task is completed
    * @param starred If task is starred
-   * @param date Due date for task
-   * @param color Color of task
    */
-  private Task(String name, boolean completed, boolean starred, String date, String color) {
+  public Task(String name, boolean completed, boolean starred){
     this.name = name;
+    this.completed = completed;
     this.starred = starred;
-    this.date = date;
-    this.color = color;
   }
 
   /**
-   * Simplified constructor using {@link #Task(String, boolean, boolean, String, String)}
+   * Simplified constructor using {@link #Task(String, boolean, boolean)}
    * @param name Name of task
    */
   public Task(String name) {
-    this(name, false, false, "No date", "black");
+    this(name, false, false);
   }
 
   /**
@@ -70,10 +67,17 @@ public class Task {
   }
 
   /**
+   * Makes task starred
+   */
+  public void unstar() {
+    this.starred = false;
+  }
+
+  /**
    * Checks if task is completed
    * @return If task is completed
    */
-  private boolean isCompleted() {
+  public boolean isCompleted() {
     return this.completed;
   }
 
@@ -84,35 +88,4 @@ public class Task {
     this.completed = true;
   }
 
-  /**
-   * Get due date of task
-   * @return Date
-   */
-  private String getDate() {
-    return this.date;
-  }
-
-  /**
-   * Set due date of task
-   * @param date Date
-   */
-  private void setDate(String date) {
-    this.date = date;
-  }
-
-  /**
-   * Get color of task
-   * @return Color
-   */
-  private String getColor() {
-    return this.color;
-  }
-
-  /**
-   * Set color of task
-   * @param color Color
-   */
-  private void setColor(String color) {
-    this.color = color;
-  }
 }

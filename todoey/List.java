@@ -8,7 +8,9 @@ package todoey;
 // import ArrayList
 import java.util.ArrayList;
 
-// create class
+/**
+ * Create List class
+ */
 public class List {
 
   // create fields

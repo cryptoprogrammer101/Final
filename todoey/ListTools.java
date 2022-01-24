@@ -8,7 +8,9 @@ package todoey;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// create class
+/**
+ * List functions
+ */
 public class ListTools {
 
     // create list
@@ -90,11 +92,6 @@ public class ListTools {
                     starTask();
                     break;
 
-                // if user entered star task
-                case "u":
-                    unstarTask();
-                    break;
-
                 // if user entered complete task
                 case "o":
                     completeTask();
@@ -113,7 +110,7 @@ public class ListTools {
                     // beep
                     Styles.beep();
                     // print to user
-                    pause("\nInvalid input. ");
+                    pause("\nInvalid input");
                     break;
             }
 
@@ -121,85 +118,89 @@ public class ListTools {
 
     }
 
+    /**
+     * Prints texts & clears formatting
+     * @param t String to print
+     */
+    private static void print(String t) {
+        System.out.print(t + Styles.RESET);
+    }
 
     /**
-	 * Prints texts & clears formatting
-	 * @param t String to print
-	 */
-	private static void print(String t) {
-		System.out.print(t + Styles.RESET);
-	}
+     * Clears formatting using {@link #print(String)}
+     */
+    private static void print() {
+        print("");
+    }
 
-	/**
-	 * Clears formatting using {@link #print(String)}
-	 */
-	private static void print() {
-		print("");
-	}
+    /**
+     * Prints with newline using {@link #print(String)}
+     * @param t String to print
+     */
+    private static void println(String t) {
+        print(t + "\n");
+    }
 
-	/**
-	 * Prints with newline using {@link #print(String)}
-	 * @param t String to print
-	 */
-	private static void println(String t) {
-		print(t + "\n");
-	}
+    /**
+     * Prints newline using {@link #println(String)}
+     */
+    private static void println() {
+        println("");
+    }
 
-	/**
-	 * Prints newline using {@link #println(String)}
-	 */
-	private static void println() {
-		println("");
-	}
+    /**
+     * Retrieves input from user
+     * @param t String to print
+     * @return User input
+     */
+    private static String inp(String t) {
+        // print text
+        print(t);
+        // change text color to green
+        System.out.print(Styles.GREEN);
+        // retrieve text
+        t = s.nextLine();
+        // clear styles
+        print();
+        // return text
+        return t;
+    }
 
-	/**
-	 * Retrieves input from user
-	 * @param t String to print
-	 * @return User input
-	 */
-	private static String inp(String t) {
-		// print text
-		print(t);
-		// change text color to green
-		System.out.print(Styles.GREEN_BT);
-		// retrieve text
-		t = s.nextLine();
-		// clear styles
-		print();
-		// return text
-		return t;
-	}
+    /**
+     * Waits for enter key to be pressed
+     * @param t String to print
+     */
+    private static void pause(String t) {
+        // print text
+        print(t);
+        print(". Press enter to continue.");
+        // wait for enter
+        s.nextLine();
+        // clear screen
+        Styles.cls();
+    }
 
-	/**
-	 * Waits for enter key to be pressed
-	 * @param t String to print
-	 */
-	private static void pause(String t) {
-		// print text
-		print(t + "Press enter to continue.");
-		// wait for enter
-		s.nextLine();
-		// clear screen
-		Styles.cls();
-	}
+    /**
+     * Waits for enter key to be pressed using {@link #pause(String)}
+     */
+    private static void pause() {
+        // print text
+        print("\nPress enter to continue.");
+        // wait for enter
+        s.nextLine();
+        // clear screen
+        Styles.cls();
+    }
 
-	/**
-	 * Waits for enter key to be pressed using {@link #pause(String)}
-	 */
-	private static void pause() {
-		// pause
-		pause("\n");
-	}
-
-	/**
-	 * Special print command menu
-	 * @param t First String
-	 * @param u Second String
-	 */
-	private static void menuPrint(String t, String u) {
-		print(Styles.GREEN_BT + t);
-		println(" : " + u);
-	}
+    /**
+     * Special print command menu
+     * @param t First String
+     * @param u Second String
+     */
+    private static void menuPrint(String t, String u) {
+        print(Styles.GREEN + t);
+        println(" : " + u);
+    }
 
     /**
      * Prints menu using {@link #menuPrint(String, String)}
@@ -211,9 +212,7 @@ public class ListTools {
 
         // print to user
         Styles.hr();
-        print(Styles.GREEN_BT + "Opened list ");
-        print(Styles.GREEN_BG_BT + l.getName());
-        println(Styles.GREEN_BT + Styles.BLACK + ". To start, press:\n");
+        println(Styles.GREEN + "Opened list " + l.getName() + ". To start, press:\n");
         menuPrint("M", "Print menu");
         menuPrint("P", "Print tasks");
         menuPrint("C", "Create task");
@@ -221,9 +220,8 @@ public class ListTools {
         menuPrint("L", "Add color to task");
         menuPrint("D", "Add date to task");
         menuPrint("S", "Star task");
-        menuPrint("U", "Un-star task");
         menuPrint("O", "Complete task");
-        menuPrint("E", "Exit list\n");
+        menuPrint("E", "Exit " + Styles.GREEN + l.getName() + "\n");
         Styles.hr();
 
     }
@@ -238,12 +236,26 @@ public class ListTools {
             // beep
             Styles.beep();
             // print to user
-            pause("\nNo existing tasks.\nStart by creating new task. ");
+            pause("\nNo existing tasks.\nStart by creating new task");
             return true;
         }
 
         return false;
 
+    }
+
+    /**
+     * Checks if task is instance of ColorTask
+     * @param t Task to check
+     * @return If task is colored
+     */
+    public static boolean isColored(Task t) {
+
+        // get Task class
+        String classname = t.getClass().getName();
+
+        // compare to ColorTask class name
+        return classname.equals(ColorTask.CLASSNAME);
     }
 
     /**
@@ -255,14 +267,13 @@ public class ListTools {
         Styles.cls();
 
         // print to user
-        print("List \"" + Styles.GREEN_BT + l.getName());
-        print("\":");
+        print("List \"" + l.getName() + "\":");
 
-        // if task is pinned
+        // if list is pinned
         if (l.isPinned()) {
 
             // print pinned
-            print(Styles.YELLOW_BT + " (PINNED)");
+            print(Styles.YELLOW + " (PINNED)");
 
         }
 
@@ -281,13 +292,28 @@ public class ListTools {
         for (int i = 0; i < numTasks; i++) {
             // get task
             Task t = tasks.get(i);
-            // print task title
-            print((i + 1) + ". " + t.getName());
+            // print task number
+            print((i + 1) + ". ");
+
+            // if task has color
+            if (isColored(t)) {
+
+                // convert to ColorTask
+                ColorTask colorTask = (ColorTask) t;
+
+                // print color
+                System.out.print(colorTask.getColor());
+
+            }
+
+            // print task name
+            print(t.getName());
 
             // if task is starred
             if (t.isStarred()) {
+
                 // print star
-                print(Styles.YELLOW_BT + " \u2b50");
+                print(Styles.YELLOW + " \u2b50");
             }
 
             println();
@@ -375,7 +401,7 @@ public class ListTools {
                 // beep
                 Styles.beep();
                 // wait for enter key
-                pause("\nNull task name. ");
+                pause("\nNull task name");
                 // restart
                 continue;
             }
@@ -386,7 +412,7 @@ public class ListTools {
                 // beep
                 Styles.beep();
                 // print to user
-                pause("\nExiting task creation. ");
+                pause("\nExiting task creation");
                 // exit task creation
                 return;
             }
@@ -402,10 +428,8 @@ public class ListTools {
                 Styles.beep();
                 // retrieve name
                 Task t = tasks.get(i);
-                // print to user
-                print("\nTask \"" + Styles.GREEN_BT + t.getName());
                 // wait for enter
-                pause("\" already exists. ");
+                pause("\nTask \"" + t.getName() + "\" already exists");
                 // restart
                 continue;
             }
@@ -418,9 +442,8 @@ public class ListTools {
         // add task to ArrayList
         tasks.add(t);
 
-        // print to user
-        print("\nCreated task \"" + Styles.GREEN_BT + t.getName());
-        pause("\". ");
+        // wait for enter
+        pause("\nCreated task \"" + t.getName() + "\"");
 
     }
 
@@ -434,6 +457,220 @@ public class ListTools {
             // stop
             return;
         }
+
+        // create empty user input
+        String name = "";
+
+        // define index of task
+        int i = 0;
+
+        // while user input is invalid
+        while (name.equals("")) {
+
+            printTasks();
+
+            println();
+
+            // get input
+            name = inp("Color task with name (\"e\" to exit): ");
+
+            // if name is empty
+            if (name.equals("")) {
+                // beep
+                Styles.beep();
+                // wait for enter key
+                pause("\nNull task name");
+                // restart
+                continue;
+            }
+
+            // if name is "e" (exit code)
+            String lowercase = name.toLowerCase();
+            if (lowercase.equals("e")) {
+                // beep
+                Styles.beep();
+                // print to user
+                pause("\nExiting task coloring");
+                // exit task creation
+                return;
+            }
+
+            // get index of task
+            i = getIndexByName(name);
+
+            // if name was not found in task
+            if (i < 0) {
+                // beep
+                Styles.beep();
+                // wait for enter
+                pause("\nInvalid input. Task \"" + name + "\" does not exist.\nMake sure to check spelling");
+                // clear user input
+                name = "";
+                // restart
+                continue;
+
+            }
+
+        }
+
+        // retrieve task
+        Task t = tasks.get(i);
+
+        // wait for enter
+        pause("\nTask \"" + t.getName() + "\" selected");
+
+        // create empty user input
+        String usr = "";
+
+        // create color
+        String color = Styles.RESET;
+
+        // while user input is invalid
+        while (usr.equals("")) {
+
+            printTasks();
+
+            println();
+
+            // get user input
+            usr = inp("New color of \"" + t.getName() + "\" (\"e\" to exit): ");
+
+            // if name is empty
+            if (usr.equals("")) {
+                // beep
+                Styles.beep();
+                // wait for enter key
+                pause("\nNull color");
+                // restart
+                continue;
+            }
+
+            // if name is "e" (exit code)
+            String lowercase = usr.toLowerCase();
+            if (lowercase.equals("e")) {
+                // beep
+                Styles.beep();
+                // print to user
+                pause("\nExiting task coloring");
+                // exit task creation
+                return;
+            }
+
+            // check for possible cases
+            switch (lowercase) {
+
+                // if user entered red
+                case "red":
+                    // set color to red
+                    color = Styles.RED;
+                    break;
+
+                // if user entered maroon
+                case "maroon":
+                    // set color to red
+                    color = Styles.RED;
+                    break;
+
+                // if user entered orange
+                case "orange":
+                    // set color to red
+                    color = Styles.RED;
+                    break;
+
+                // if user entered yellow
+                case "yellow":
+                    // set color to yellow
+                    color = Styles.YELLOW;
+                    break;
+
+                // if user entered green
+                case "green":
+                    // set color to green
+                    color = Styles.GREEN;
+                    break;
+
+                // if user entered blue
+                case "blue":
+                    // set color to blue
+                    color = Styles.BLUE;
+                    break;
+
+                // if user entered cyan
+                case "cyan":
+                    // set color to blue
+                    color = Styles.BLUE;
+                    break;
+
+                // if user entered indigo
+                case "indigo":
+                    // set color to purple
+                    color = Styles.PURPLE;
+                    break;
+
+                // if user entered purple
+                case "purple":
+                    // set color to purple
+                    color = Styles.PURPLE;
+                    break;
+
+                // if user entered violet
+                case "violet":
+                    // set color to purple
+                    color = Styles.PURPLE;
+                    break;
+
+                // if user entered magenta
+                case "magenta":
+                    // set color to pink
+                    color = Styles.PINK;
+                    break;
+
+                // if user entered pink
+                case "pink":
+                    // set color to pink
+                    color = Styles.PINK;
+                    break;
+
+                // if user entered black
+                case "black":
+                    // set color to black
+                    color = Styles.BLACK;
+                    break;
+
+                // if user entered gray
+                case "gray":
+                    // set color to black
+                    color = Styles.BLACK;
+                    break;
+
+                // if user entered white
+                case "white":
+                    // reset color
+                    color = Styles.RESET;
+                    break;
+
+                // if the user did not enter valid color
+                default:
+                    // beep
+                    Styles.beep();
+                    // wait for enter
+                    pause("\nInvalid input. Color \"" + usr + "\" not recognized");
+                    // clear user input
+                    usr = "";
+                    break;
+
+            }
+
+        }
+
+        // create ColorTask
+        ColorTask newTask = new ColorTask(t, color);
+
+        // replace old task with new one
+        tasks.set(i, newTask);
+
+        // wait for enter
+        pause("\nColored task " + newTask.getColor() + newTask.getName() + "");
 
     }
 
@@ -482,7 +719,7 @@ public class ListTools {
                 // beep
                 Styles.beep();
                 // wait for enter key
-                pause("\nNull task name. ");
+                pause("\nNull task name");
                 // restart
                 continue;
             }
@@ -493,7 +730,7 @@ public class ListTools {
                 // beep
                 Styles.beep();
                 // print to user
-                pause("\nExiting task deletion. ");
+                pause("\nExiting task deletion");
                 // exit task deletion
                 return;
             }
@@ -505,10 +742,8 @@ public class ListTools {
             if (i < 0) {
                 // beep
                 Styles.beep();
-                // print to user
-                print("\nInvalid input. Task \"" + Styles.GREEN_BT + name);
                 // wait for enter
-                pause("\" does not exist.\nMake sure to check spelling. ");
+                pause("\nInvalid input. Task \"" + name + "\" does not exist.\nMake sure to check spelling");
                 // clear user input
                 name = "";
                 // restart
@@ -524,9 +759,8 @@ public class ListTools {
         // delete task
         tasks.remove(t);
 
-        // print to user
-        print("\nDeleted task \"" + Styles.GREEN_BT + t.getName());
-        pause("\". ");
+        // wait for enter
+        pause("\nDeleted task \"" + t.getName() + "");
 
     }
 
@@ -562,7 +796,7 @@ public class ListTools {
                 // beep
                 Styles.beep();
                 // wait for enter key
-                pause("\nNull task name. ");
+                pause("\nNull task name");
                 // restart
                 continue;
             }
@@ -573,7 +807,7 @@ public class ListTools {
                 // beep
                 Styles.beep();
                 // print to user
-                pause("\nExiting task starring. ");
+                pause("\nExiting task starring");
                 // exit task
                 return;
             }
@@ -585,10 +819,8 @@ public class ListTools {
             if (i < 0) {
                 // beep
                 Styles.beep();
-                // print to user
-                print("\nInvalid input. Task \"" + Styles.GREEN_BT + name);
-                // wait for enter key
-                pause("\" does not exist. ");
+                // wait for enter
+                pause("\nInvalid input. Task \"" + name + "\" does not exist");
                 // clear user input
                 name = "";
                 // restart
@@ -600,138 +832,11 @@ public class ListTools {
         // retrieve task
         Task t = tasks.get(i);
 
-        // set pinned task to pinned
+        // set starred task to starred
         t.star();
 
-        // print to user
-        print("\nStarred task \"" + Styles.GREEN_BT + t.getName());
-        pause("\". ");
-
-    }
-
-    /**
-     * Checks if starred taske xists
-     * @return starred task exists
-     */
-    private static boolean starredExists() {
-        // loop through tasks
-        for (Task t : tasks) {
-            // if task is starred
-            if (t.isStarred()) {
-                // return true
-                return true;
-            }
-        }
-
-        // otherwise return false
-        return false;
-
-    }
-
-    /**
-     * Un-star task
-     */
-    private static void unstarTask() {
-
-        // if there are no tasks
-        if (noTasks()) {
-            // stop
-            return;
-        }
-
-        // if no task is starred
-        if (!starredExists()) {
-            // beep
-            Styles.beep();
-            // wait for enter key
-            pause("\nNo starred task exists. ");
-            // exit
-            return;
-        }
-
-        // create empty user input
-        String name = "";
-
-        // create index of task to unstar
-        int i = -1;
-
-        // while user input is invalid
-        while (name.equals("")) {
-
-            printTasks();
-
-            println();
-
-            // get input
-            name = inp("Un-star task with name (\"e\" to exit): ");
-
-            // if name is empty
-            if (name.equals("")) {
-                // beep
-                Styles.beep();
-                // wait for enter key
-                pause("\nNull task name. ");
-                // restart
-                continue;
-            }
-
-            // if name is "e" (exit code)
-            String lowercase = name.toLowerCase();
-            if (lowercase.equals("e")) {
-                // beep
-                Styles.beep();
-                // print to user
-                pause("\nExiting task un-starring. ");
-                // exit task
-                return;
-            }
-
-            // get index of task
-            i = getIndexByName(name);
-
-            // if name was not found in task
-            if (i < 0) {
-                // beep
-                Styles.beep();
-                // print to user
-                print("\nInvalid input. Task \"" + Styles.GREEN_BT + name);
-                // wait for enter key
-                pause("\" does not exist. ");
-                // clear user input
-                name = "";
-                // restart
-                continue;
-            }
-
-            // retrieve task
-            Task current = tasks.get(i);
-
-            // if task is not pinned
-            if (!current.isStarred()) {
-                // beep
-                Styles.beep();
-                // print to user
-                print("\nInvalid input. Task \"" + Styles.GREEN_BT + current.getName());
-                // wait for enter key
-                pause("\" is not starred. ");
-                // clear user input
-                name = "";
-                // restart
-                continue;
-            }
-
-        }
-
-        // retrieve task
-        Task t = tasks.get(i);
-
-        // set task to unpinned
-        t.star();
-
-        // print to user
-        print("\nUn-starred task \"" + Styles.GREEN_BT + t.getName());
-        pause("\". ");
-
+        // wait for enter
+        pause("\nStarred task \"" + t.getName() + "\"");
 
     }
 
@@ -753,9 +858,9 @@ public class ListTools {
      */
     private static void exit() {
         // print to user
-        print("\nExiting list \"" + Styles.GREEN_BT + l.getName());
+        print("\nExiting list " + Styles.GREEN + l.getName());
         // wait for enter
-        pause("\". ");
+        pause("");
     }
 
 
