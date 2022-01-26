@@ -38,12 +38,4 @@ public class ColorTask extends Task {
     public String getColor() {
         return color;
     }
-
-    /**
-     * Sets color
-     * @param color Color of task
-     */
-    public void setColor(String color) {
-        this.color = color;
-    }
 }

@@ -31,7 +31,7 @@ public class Main {
 		while (run) {
 
 			// print menu
-			menu();
+			printMenu();
 
 			// retrieve user input
 			String t = inp("Enter: ");
@@ -59,6 +59,11 @@ public class Main {
 						pause();
 					}
 
+					break;
+
+				// if user entered print as 2d array
+				case "a":
+					print2dArray();
 					break;
 
 				// if user entered save lists
@@ -96,15 +101,10 @@ public class Main {
 					openList();
 					break;
 
-				// if user entered unpin list
-				case "u":
-					unpinList();
-					break;
-
 				// if user entered exit Todoey
 				case "e":
 					run = false;
-					exit();
+					exitLists();
 					break;
 
 				// if user gave invalid input
@@ -130,14 +130,14 @@ public class Main {
 	}
 
 	/**
-	 * Clears formatting using {@link #print(String)}
+	 * Clears formatting using print(String)
 	 */
 	private static void print() {
 		print("");
 	}
 
 	/**
-	 * Prints with newline using {@link #print(String)}
+	 * Prints with newline using print(String)
 	 * @param t String to print
 	 */
 	private static void println(String t) {
@@ -145,7 +145,7 @@ public class Main {
 	}
 
 	/**
-	 * Prints newline using {@link #println(String)}
+	 * Prints newline using println(String)
 	 */
 	private static void println() {
 		println("");
@@ -184,7 +184,7 @@ public class Main {
 	}
 
 	/**
-	 * Waits for enter key to be pressed using {@link #pause(String)}
+	 * Waits for enter key to be pressed using pause(String)
 	 */
 	private static void pause() {
 		// print text
@@ -206,9 +206,9 @@ public class Main {
 	}
 
 	/**
-	 * Prints menu using {@link #menuPrint(String, String)}
+	 * Prints menu using menuPrint(String, String)
 	 */
-	private static void menu() {
+	private static void printMenu() {
 
 		// clear screen
 		Styles.cls();
@@ -218,6 +218,7 @@ public class Main {
 		println(Styles.GREEN + "Welcome to Todoey. To start, press:\n");
 		menuPrint("M", "Print menu");
 		menuPrint("P", "Print lists");
+		menuPrint("A", "Print as 2d array");
 		menuPrint("L", "Load lists");
 		menuPrint("S", "Save lists");
 		menuPrint("R", "Reorder lists");
@@ -226,14 +227,13 @@ public class Main {
 		menuPrint("D", "Delete list");
 		menuPrint("O", "Open list");
 		menuPrint("I", "Pin list");
-		menuPrint("U", "Unpin list");
 		menuPrint("E", "Exit " + Styles.GREEN + "Todoey\n");
 		Styles.hr();
 
 	}
 
 	/**
-	 * Checks if there are existing {@link #lists}
+	 * Checks if there are existing 
 	 * @return if list is found
 	 */
 	private static boolean noLists() {
@@ -342,21 +342,7 @@ public class Main {
 	}
 
 	/**
-	 * Checks if task is instance of {@link DateTask}
-	 * @param t Task to check
-	 * @return If task has date
-	 */
-	public static boolean hasDate(Task t) {
-
-		// get Task class
-		String classname = t.getClass().getName();
-
-		// compare to ColorTask class name
-		return classname.equals(DateTask.CLASSNAME);
-	}
-
-	/**
-	 * Prints {@link #lists}
+	 * Prints 
 	 */
 	private static void printLists() {
 
@@ -422,21 +408,18 @@ public class Main {
 				// print task name
 				print(t.getName());
 
-				// if task has date
-				if (hasDate(t)) {
-
-					// convert to ColorTask
-					DateTask colorTask = (DateTask) t;
-
-					// print color
-					System.out.print(" - " + colorTask.getDate() + " ");
-
-				}
-
 				// if task is starred
 				if (t.isStarred()) {
 					// print star
 					print(Styles.YELLOW + " \u2b50");
+				}
+
+				// if task is completed
+				if (t.isCompleted()) {
+
+					// print check mark
+					print(" \u2714");
+
 				}
 
 				println();
@@ -450,7 +433,184 @@ public class Main {
 	}
 
 	/**
-	 * Saves {@link #lists}
+	 * Calculates total number of tasks
+	 * @return Number of tasks
+	 */
+	public static boolean noTasks() {
+
+		// define counter variable
+		int counter = 0;
+
+		// loop through lists
+		for (List l : lists) {
+
+			// loop through tasks
+			for (Task t : l.getTasks()) {
+
+				// increment counter
+				counter++;
+
+			}
+
+		}
+
+		// if there are no tasks
+		if (counter == 0) {
+			// beep
+			Styles.beep();
+			// print to user
+			pause("\nNo existing tasks.\nStart by opening new list & creating new task");
+			// return true;
+			return true;
+		}
+
+		return false;
+
+	}
+
+	/**
+	 * Finds maximum number of tasks in list
+	 * @return Number of tasks in list
+	 */
+	public static int maxTasks() {
+
+		// define maximum
+		int max = -1;
+
+		// loop through lists
+		for (List l : lists) {
+
+			// retrieve tasks
+			ArrayList<Task> tasks = l.getTasks();
+
+			// if tasks is longer than max
+			if (tasks.size() > max) {
+				// update max
+				max = tasks.size();
+			}
+
+		}
+
+		// return max;
+		return max;
+
+	}
+
+	/**
+	 * Convert lists to 2d array
+	 */
+	public static String[][] create2dArray() {
+
+		// find most tasks
+		int max = maxTasks();
+
+		// create 2d array
+		String[][] arr = new String[lists.size()][max];
+
+		// loop through array
+		for (int i = 0; i < arr.length; i++) {
+
+			// retrieve list
+			List l = lists.get(i);
+
+			// retrieve tasks
+			ArrayList<Task> tasks = l.getTasks();
+
+			// loop through tasks
+			for (int j = 0; j < tasks.size(); j++) {
+
+				// retrieve task
+				Task t = tasks.get(j);
+
+				// update array
+				arr[i][j] = t.getName();
+
+			}
+
+		}
+
+		// return array
+		return arr;
+
+	}
+
+	/**
+	 * Prints lists as 2d array
+	 */
+	public static void print2dArray() {
+
+		// if there are no lists
+		if (noLists()) {
+			// stop
+			return;
+		}
+
+		// if there are no tasks
+		if (noTasks()) {
+			// stop
+			return;
+		}
+
+		// clear screen
+		Styles.cls();
+
+		// print to user
+		println("Lists as 2d array:\n");
+
+		// create 2d array using lists
+		String[][] arr = create2dArray();
+
+		// loop through rows
+		for (String[] row : arr) {
+
+			// loop through columns
+			for (int j = 0; j < row.length; j++) {
+
+				// retrieve name
+				String n = row[j];
+
+				// if name is null
+				if (n == null) {
+					// break out
+					break;
+				}
+
+				// print name
+				System.out.print(n);
+
+				// if this is last column
+				if (j + 2 > row.length) {
+					// print newline
+					println();
+					// break out
+					break;
+				}
+
+				// if this is the last non-null column
+				if (row[j + 1] == null) {
+					// print newline
+					println();
+					// break out
+					break;
+				}
+
+				// print trailing comma
+				System.out.print(",\t");
+
+			}
+
+		}
+
+		// print newlines
+		println("\n");
+
+		// wait for enter
+		pause();
+
+	}
+
+	/**
+	 * Saves 
 	 */
 	private static void saveLists() {
 
@@ -544,7 +704,7 @@ public class Main {
 	}
 
 	/**
-	 * Finds index given list name using {@link #listNames()}
+	 * Finds index given list name using listNames()
 	 * @param n List name
 	 * @return Index
 	 */
@@ -575,7 +735,7 @@ public class Main {
 	}
 
 	/**
-	 * Reorders {@link #lists}
+	 * Reorders 
 	 */
 	private static void reorderLists() {
 
@@ -1279,117 +1439,9 @@ public class Main {
 	}
 
 	/**
-	 * Unpins list
-	 */
-	private static void unpinList() {
-
-		// if there are no lists
-		if (noLists()) {
-			// stop
-			return;
-		}
-
-		// get first list
-		List first = lists.get(0);
-
-		// if no list is pinned
-		if (!first.isPinned()) {
-			// beep
-			Styles.beep();
-			// wait for enter key
-			pause("\nNo pinned list exists");
-			// exit
-			return;
-		}
-
-		// create empty user input
-		String name = "";
-
-		// create index of list to unpin
-		int i = -1;
-
-		// while user input is invalid
-		while (name.equals("")) {
-
-			printLists();
-
-			println();
-
-			// get input
-			name = inp("Unpin list with name (\"e\" to exit): ");
-
-			// if name is empty
-			if (name.equals("")) {
-				// beep
-				Styles.beep();
-				// wait for enter key
-				pause("\nNull list name");
-				// restart
-				continue;
-			}
-
-			// if name is "e" (exit code)
-			String lowercase = name.toLowerCase();
-			if (lowercase.equals("e")) {
-				// beep
-				Styles.beep();
-				// print to user
-				pause("\nExiting list unpinning");
-				// exit list
-				return;
-			}
-
-			// get index of list
-			i = getIndexByName(name);
-
-			// if name was not found in list
-			if (i < 0) {
-				// beep
-				Styles.beep();
-				// print to user
-				print("\nInvalid input. List " + Styles.GREEN + name);
-				// wait for enter key
-				pause(" does not exist");
-				// clear user input
-				name = "";
-				// restart
-				continue;
-			}
-
-			// retrieve list
-			List current = lists.get(i);
-
-			// if list is not pinned
-			if (!current.isPinned()) {
-				// beep
-				Styles.beep();
-				// print to user
-				print("\nInvalid input. List " + Styles.GREEN + current.getName());
-				// wait for enter key
-				pause(" is not pinned");
-				// clear user input
-				name = "";
-				// restart
-				continue;
-			}
-
-		}
-
-		// retrieve list
-		List l = lists.get(i);
-
-		// unpin
-		l.unpin();
-
-		// wait for enter
-		pause("\nUnpinned list " + Styles.GREEN + l.getName() + "");
-
-	}
-
-	/**
 	 * Terminates Todoey
 	 */
-	private static void exit() {
+	private static void exitLists() {
 		// beep
 		Styles.beep();
 		// print to user

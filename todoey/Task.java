@@ -44,14 +44,6 @@ public class Task {
   }
 
   /**
-   * Sets name
-   * @param name Name
-   */
-  private void setName(String name) {
-    this.name = name;
-  }
-
-  /**
    * Checks if task is starred
    * @return If task is starred
    */
@@ -67,7 +59,7 @@ public class Task {
   }
 
   /**
-   * Makes task starred
+   * Makes task unstarred
    */
   public void unstar() {
     this.starred = false;
@@ -82,10 +74,16 @@ public class Task {
   }
 
   /**
-   * Complete task
+   * Completes task
    */
-  private void complete() {
+  public void complete() {
     this.completed = true;
   }
 
+  /**
+   * Makes task uncomplete
+   */
+  public void uncomplete() {
+    this.completed = false;
+  }
 }

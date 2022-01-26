@@ -10,15 +10,6 @@ package todoey;
  */
 public class Styles {
 
-    /**
-     * BD: bold
-     * BT: bright
-     * LT: light
-     * DK: dark
-     * BG: background
-     * UL: underline
-     */
-
     public static final String RESET = "\u001B[0m";
 
     public static final String GREEN = "\033[0;92m";
@@ -29,9 +20,7 @@ public class Styles {
     public static final String PINK = "\033[0;95m";
     public static final String BLUE = "\033[0;96m";
 
-
-//    public static final String CLS = "\033[H\033[2J";
-    public static final String CLS = "";
+    public static final String CLS = "\033[H\033[2J";
     public static final String BEEP = "\007";
 
     public static final String PURPLE = "\u001B[34m";

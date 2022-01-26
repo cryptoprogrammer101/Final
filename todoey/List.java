@@ -35,15 +35,7 @@ public class List {
    * @param name Name of list
    */
   public List(String name) {
-    this(name, false, new ArrayList<>());
-  }
-
-  /**
-   * Create task
-   * @param t Task
-   */
-  private void createTask(Task t) {
-    tasks.add(t);
+    this(name, false, new ArrayList<Task>());
   }
 
   /**
@@ -90,13 +82,5 @@ public class List {
    */
   public ArrayList<Task> getTasks() {
     return this.tasks;
-  }
-
-  /**
-   * Sets tasks
-   * @param tasks Tasks
-   */
-  private void setTasks(ArrayList<Task> tasks) {
-    this.tasks = tasks;
   }
 }
