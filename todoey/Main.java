@@ -233,20 +233,17 @@ public class Main {
 	}
 
 	/**
-	 * Checks if there are existing 
-	 * @return if list is found
+	 * Prints files in folder
 	 */
-	private static boolean noLists() {
-		// if there are no lists
-		if (lists.size() == 0) {
-			// beep
-			Styles.beep();
-			// print to user
-			pause("\nNo existing lists.\nStart by creating new list or loading saved list");
-			return true;
-		}
+	public static void printFiles() {
 
-		return false;
+		// retrieve filenames
+		String[] filenames = Files.getFileNames();
+
+		// clear screen
+		Styles.cls();
+
+		println();
 
 	}
 
@@ -258,16 +255,20 @@ public class Main {
 		// create empty user input
 		String fname = "";
 
+		// create Files object
+		Files f = new Files(fname);
+
 		// while user input is invalid
 		while (fname.equals("")) {
 
 			// print files in folder
-			Files.printFiles();
-
-			println();
+			printFiles();
 
 			// get input
 			fname = inp("Name of database file (\"e\" to exit): ");
+
+			// update filename
+			f.setFileName(fname);
 
 			// if name is empty
 			if (fname.equals("")) {
@@ -291,13 +292,11 @@ public class Main {
 			}
 
 			// check if file exists
-			if (!Files.fileExists(fname)) {
+			if (!f.fileExists()) {
 				// beep
 				Styles.beep();
-				// print to user
-				print("\nInvalid file name. File " + Styles.GREEN + fname);
 				// wait for enter
-				pause(" does not exist");
+				pause("\nInvalid file name. File \"" + fname + "\" does not exist");
 				// reset user input
 				fname = "";
 				// restart
@@ -306,24 +305,37 @@ public class Main {
 
 		}
 
-		// update list using filename
-		lists = Files.loadLists(fname);
+		// update list
+		lists = f.loadLists();
 
 		// if no lists were found
 		if (lists.size() == 0) {
-			// print to user
-			print("\nNo lists found in file " + Styles.GREEN + fname);
 			// wait for enter
-			pause(". To start, create new lists or load lists from another file");
+			pause("\nNo lists found in file \"" + fname + "\"");
 			// exit
 			return;
 		}
 
-		// print to user
-		print("\nLoaded " + Styles.GREEN + lists.size());
-
 		// wait for enter
-		pause(" lists from file " + Styles.GREEN + fname + "");
+		pause("\nLoaded " + lists.size() + " lists from file " + fname + "\"");
+
+	}
+
+	/**
+	 * Checks if there are existing
+	 * @return if list is found
+	 */
+	private static boolean noLists() {
+		// if there are no lists
+		if (lists.size() == 0) {
+			// beep
+			Styles.beep();
+			// print to user
+			pause("\nNo existing lists.\nStart by creating new list or loading saved list");
+			return true;
+		}
+
+		return false;
 
 	}
 
@@ -610,7 +622,7 @@ public class Main {
 	}
 
 	/**
-	 * Saves 
+	 * Saves lists
 	 */
 	private static void saveLists() {
 
@@ -623,16 +635,20 @@ public class Main {
 		// create empty user input
 		String fname = "";
 
+		// create Files object
+		Files f = new Files(fname, lists);
+
 		// while user input is invalid
 		while (fname.equals("")) {
 
 			// print files in folder
-			Files.printFiles();
-
-			println();
+			printFiles();
 
 			// get input
 			fname = inp("Name of database file to save to (\"e\" to exit): ");
+
+			// update filename
+			f.setFileName(fname);
 
 			// if name is empty
 			if (fname.equals("")) {
@@ -655,28 +671,25 @@ public class Main {
 				return;
 			}
 
-			// check if file formatting
-			if (!Files.formatted(fname)) {
+			// if filename is not properly formatted
+			if (!f.formatted()) {
 				// reset user input
 				fname = "";
 				// beep
 				Styles.beep();
 				// wait for enter
-				pause("\nInvalid file formatting");
+				pause("\nInvalid file formatting.\nFile must be in format \"filename.txt\"");
 				// restart
 				continue;
 			}
 
 		}
 
-		// save lists using filename
-		Files.saveLists(fname);
-
-		// print to user
-		print("\nSaved " + Styles.GREEN + lists.size());
+		// save lists
+		f.saveLists();
 
 		// wait for enter
-		pause(" lists to file " + Styles.GREEN + fname + "");
+		pause("\nSaved " + lists.size() + " lists to file \"" + f.getFileName() + "\"");
 
 	}
 
@@ -756,8 +769,6 @@ public class Main {
 
 			printLists();
 
-			println();
-
 			// get input
 			name = inp("Move list with name (\"e\" to exit): ");
 
@@ -789,10 +800,8 @@ public class Main {
 			if (i < 0) {
 				// beep
 				Styles.beep();
-				// print to user
-				print("\nInvalid input. List " + Styles.GREEN + name);
-				// wait for enter key
-				pause(" does not exist");
+				// wait for enter
+				pause("\nInvalid input. List " + name +" does not exist");
 				// clear user input
 				name = "";
 				// restart
@@ -807,7 +816,7 @@ public class Main {
 				// beep
 				Styles.beep();
 				// wait for enter
-				pause("\nCannot move pinned list " + Styles.GREEN + current.getName() + "");
+				pause("\nCannot move pinned list " + current.getName());
 				// clear user input
 				name = "";
 				// restart
@@ -819,9 +828,8 @@ public class Main {
 		// retrieve list
 		List l = lists.get(i);
 
-		// print to user
-		print("\nList " + Styles.GREEN + l.getName());
-		pause(" selected");
+		// wait for enter
+		pause("\nList " + l.getName() + " selected");
 
 		// create empty user input
 		String usrI = "";
@@ -834,13 +842,8 @@ public class Main {
 
 			printLists();
 
-			println();
-
-			// print to user
-			print("Move list " + Styles.GREEN + l.getName());
-
 			// get input
-			usrI = inp(" to index: (\"e\" to exit, index 1 = first element): ");
+			usrI = inp("Move list " + l.getName() + " to index: (\"e\" to exit, index 1 = first element): ");
 
 			// if name is empty
 			if (usrI.equals("")) {
@@ -888,10 +891,8 @@ public class Main {
 				usrI = "";
 				// beep
 				Styles.beep();
-				// print to user
-				print("\nInvalid input. Index must be between " + Styles.GREEN + "1 ");
 				// wait for enter
-				pause("and " + Styles.GREEN + lists.size() + "");
+				print("\nInvalid input. Index must be between 1 and " + lists.size());
 				// restart
 				continue;
 			}
@@ -907,7 +908,7 @@ public class Main {
 				// beep
 				Styles.beep();
 				// wait for enter
-				pause("\nCannot move pinned list " + Styles.GREEN + current.getName() + "");
+				pause("\nCannot move pinned list " + current.getName());
 				// clear user input
 				usrI = "";
 				// restart
@@ -951,10 +952,8 @@ public class Main {
 		// move list
 		lists.set(newI, l);
 
-		// print to user
-		print("\nMoved list " + Styles.GREEN + l.getName());
 		// wait for enter
-		pause(" to index " + Styles.GREEN + (newI + 1) + "");
+		pause("\nMoved list " + l.getName() + " to index " + (newI + 1));
 
 	}
 
@@ -970,8 +969,6 @@ public class Main {
 		while (name.equals("")) {
 
 			printLists();
-
-			println();
 
 			// get input
 			name = inp("Create list with name (\"e\" to exit): ");
@@ -1008,10 +1005,8 @@ public class Main {
 				Styles.beep();
 				// retrieve name
 				List l = lists.get(i);
-				// print to user
-				print("\nList " + Styles.GREEN + l.getName());
 				// wait for enter
-				pause(" already exists");
+				pause("\nList " + l.getName() + " already exists");
 				// restart
 				continue;
 			}
@@ -1025,10 +1020,13 @@ public class Main {
 		lists.add(l);
 
 		// wait for enter
-		pause("\nOpening list " + Styles.GREEN + l.getName() + "");
+		pause("\nOpening list " + l.getName());
 
-		// open list
-		ListTools.openList(l);
+		// create ListTools object
+		ListTools tools = new ListTools(l);
+
+		// open list;
+		tools.openList();
 
 	}
 
@@ -1053,8 +1051,6 @@ public class Main {
 		while (name.equals("")) {
 
 			printLists();
-
-			println();
 
 			// get input
 			name = inp("Delete list with name (\"e\" to exit): ");
@@ -1087,10 +1083,8 @@ public class Main {
 			if (i < 0) {
 				// beep
 				Styles.beep();
-				// print to user
-				print("\nInvalid input. List " + Styles.GREEN + name);
 				// wait for enter
-				pause(" does not exist.\nMake sure to check spelling");
+				pause("\nInvalid input. List \"" + name + "\" does not exist.\nMake sure to check spelling");
 				// clear user input
 				name = "";
 				// restart
@@ -1107,7 +1101,7 @@ public class Main {
 		lists.remove(l);
 
 		// wait for enter
-		pause("\nDeleted list " + Styles.GREEN + l.getName() + "");
+		pause("\nDeleted list " + l.getName());
 
 	}
 
@@ -1129,10 +1123,8 @@ public class Main {
 		if (first.isPinned()) {
 			// beep
 			Styles.beep();
-			// print to user
-			print("\nCannot pin another list. Pinned list " + Styles.GREEN + first.getName());
 			// wait for enter
-			pause(" already exists");
+			pause("\nCannot pin another list. Pinned list " + first.getName() + " already exists");
 			// exit
 			return;
 		}
@@ -1147,8 +1139,6 @@ public class Main {
 		while (name.equals("")) {
 
 			printLists();
-
-			println();
 
 			// get input
 			name = inp("Pin list with name (\"e\" to exit): ");
@@ -1182,9 +1172,7 @@ public class Main {
 				// beep
 				Styles.beep();
 				// print to user
-				print("\nInvalid input. List " + Styles.GREEN + name);
-				// wait for enter key
-				pause(" does not exist");
+				pause("\nInvalid input. List \"" + name + "\" does not exist");
 				// clear user input
 				name = "";
 				// restart
@@ -1209,7 +1197,7 @@ public class Main {
 		lists.set(i, first);
 
 		// wait for enter
-		pause("\nPinned list " + Styles.GREEN + l.getName() + "");
+		pause("\nPinned list " + l.getName());
 
 	}
 
@@ -1235,8 +1223,6 @@ public class Main {
 		while (name.equals("")) {
 
 			printLists();
-
-			println();
 
 			// get input
 			name = inp("Rename list (\"e\" to exit): ");
@@ -1269,10 +1255,8 @@ public class Main {
 			if (i < 0) {
 				// beep
 				Styles.beep();
-				// print to user
-				print("\nInvalid input. List " + Styles.GREEN + name);
-				// wait for enter key
-				pause(" does not exist");
+				// wait for enter
+				print("\nInvalid input. List \"" + name + "\" does not exist");
 				// clear user input
 				name = "";
 				// restart
@@ -1284,9 +1268,8 @@ public class Main {
 		// retrieve list
 		List l = lists.get(i);
 
-		// print to user
-		print("\nList " + Styles.GREEN + l.getName());
-		pause(" selected");
+		// wait for enter
+		pause("\nList " + l.getName() + " selected");
 
 		// create new empty user input
 		String newName = "";
@@ -1295,13 +1278,9 @@ public class Main {
 		while (newName.equals("")) {
 
 			printLists();
-			println();
-
-			// print to user
-			print("New name for list " + Styles.GREEN + l.getName());
 
 			// get input
-			newName = inp(" (\"e\" to exit): ");
+			newName = inp("New name for list " + l.getName() + " (\"e\" to exit): ");
 
 			// if name is empty
 			if (newName.equals("")) {
@@ -1335,10 +1314,8 @@ public class Main {
 				Styles.beep();
 				// retrieve name
 				List current = lists.get(j);
-				// print to user
-				print("\nList " + Styles.GREEN + current.getName());
 				// wait for enter
-				pause(" already exists");
+				pause("\nList " + current.getName() + " already exists");
 				// restart
 				continue;
 			}
@@ -1381,8 +1358,6 @@ public class Main {
 
 			printLists();
 
-			println();
-
 			// get input
 			name = inp("Open list with name (\"e\" to exit): ");
 
@@ -1414,10 +1389,8 @@ public class Main {
 			if (i < 0) {
 				// beep
 				Styles.beep();
-				// print to user
-				print("\nInvalid input. List " + Styles.GREEN + name);
-				// wait for enter key
-				pause(" does not exist");
+				// wait for enter
+				pause("\nInvalid input. List \"" + name + "\" does not exist");
 				// clear user input
 				name = "";
 				// restart
@@ -1430,11 +1403,13 @@ public class Main {
 		List l = lists.get(i);
 
 		// print to user
-		print("\nOpening list " + Styles.GREEN + l.getName());
+		pause("\nOpening list " + l.getName());
 
+		// create ListTools object
+		ListTools tools = new ListTools(l);
 
-		// open list
-		ListTools.openList(l);
+		// open list;
+		tools.openList();
 
 	}
 

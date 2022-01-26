@@ -24,7 +24,7 @@ public class List {
    * @param pinned If list is pinned
    * @param tasks ArrayList of Tasks
    */
-  private List(String name, boolean pinned, ArrayList<Task> tasks) {
+  public List(String name, boolean pinned, ArrayList<Task> tasks) {
     this.name = name;
     this.pinned = pinned;
     this.tasks = tasks;

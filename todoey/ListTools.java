@@ -14,25 +14,27 @@ import java.util.Scanner;
 public class ListTools {
 
     // create list
-    private static List l;
+    private List l;
 
     // create tasks
-    private static ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     // create Scanner object
-    private static Scanner s = new Scanner(System.in);
+    private Scanner s = new Scanner(System.in);
+
+    /**
+     * Create constructor
+     * @param l List to use
+     */
+    public ListTools(List l) {
+        this.l = l;
+        this.tasks = l.getTasks();
+    }
 
     /**
      * Opens list
-     * @param lst List
      */
-    public static void openList(List lst) {
-
-        // update list
-        l = lst;
-
-        // update tasks
-        tasks = l.getTasks();
+    public void openList() {
 
         // set flag variable
         boolean run = true;
@@ -117,14 +119,14 @@ public class ListTools {
      * Prints texts & clears formatting
      * @param t String to print
      */
-    private static void print(String t) {
+    private void print(String t) {
         System.out.print(t + Styles.RESET);
     }
 
     /**
      * Clears formatting using print(String)
      */
-    private static void print() {
+    private void print() {
         print("");
     }
 
@@ -132,14 +134,14 @@ public class ListTools {
      * Prints with newline using print(String)
      * @param t String to print
      */
-    private static void println(String t) {
+    private void println(String t) {
         print(t + "\n");
     }
 
     /**
      * Prints newline using println(String)
      */
-    private static void println() {
+    private void println() {
         println("");
     }
 
@@ -148,7 +150,7 @@ public class ListTools {
      * @param t String to print
      * @return User input
      */
-    private static String inp(String t) {
+    private String inp(String t) {
         // print text
         print(t);
         // change text color to green
@@ -165,7 +167,7 @@ public class ListTools {
      * Waits for enter key to be pressed
      * @param t String to print
      */
-    private static void pause(String t) {
+    private void pause(String t) {
         // print text
         print(t);
         print(". Press enter to continue.");
@@ -178,7 +180,7 @@ public class ListTools {
     /**
      * Waits for enter key to be pressed using pause(String)
      */
-    private static void pause() {
+    private void pause() {
         // print text
         print("\nPress enter to continue.");
         // wait for enter
@@ -192,7 +194,7 @@ public class ListTools {
      * @param t First String
      * @param u Second String
      */
-    private static void menuPrint(String t, String u) {
+    private void menuPrint(String t, String u) {
         print(Styles.GREEN + t);
         println(" : " + u);
     }
@@ -200,7 +202,7 @@ public class ListTools {
     /**
      * Prints menu using menuPrint(String, String)
      */
-    private static void menu() {
+    private void menu() {
 
         // clear screen
         Styles.cls();
@@ -224,7 +226,7 @@ public class ListTools {
      * Checks if there are existing tasks
      * @return if task is found
      */
-    private static boolean noTasks() {
+    private boolean noTasks() {
         // if there are no tasks
         if (tasks.size() == 0) {
             // beep
@@ -243,7 +245,7 @@ public class ListTools {
      * @param t Task to check
      * @return If task is colored
      */
-    public static boolean isColored(Task t) {
+    private boolean isColored(Task t) {
 
         // get Task class
         String classname = t.getClass().getName();
@@ -255,7 +257,7 @@ public class ListTools {
     /**
      * Prints tasks}
      */
-    private static void printTasks() {
+    private void printTasks() {
 
         // clear screen
         Styles.cls();
@@ -331,7 +333,7 @@ public class ListTools {
      * Retrieves task names
      * @return Array of names
      */
-    private static String[] taskNames() {
+    private String[] taskNames() {
 
         // create array with same length as tasks
         String[] names = new String[tasks.size()];
@@ -355,7 +357,7 @@ public class ListTools {
 	 * @param n Task name
 	 * @return Index
 	 */
-    private static int getIndexByName(String n) {
+    private int getIndexByName(String n) {
 
         // convert name to lowercase
         n = n.toLowerCase();
@@ -384,7 +386,7 @@ public class ListTools {
     /**
      * Creates task
      */
-    private static void createTask() {
+    private void createTask() {
 
         // create empty user input
         String name = "";
@@ -453,7 +455,7 @@ public class ListTools {
     /**
      * Adds color
      */
-    private static void addColor() {
+    private void addColor() {
 
         // if there are no tasks
         if (noTasks()) {
@@ -677,7 +679,7 @@ public class ListTools {
     /**
      * Deletes task
      */
-    private static void deleteTask() {
+    private void deleteTask() {
 
         // if there are no tasks
         if (noTasks()) {
@@ -754,7 +756,7 @@ public class ListTools {
     /**
      * Stars task
      */
-    private static void starTask() {
+    private void starTask() {
 
         // if there are no tasks
         if (noTasks()) {
@@ -833,7 +835,7 @@ public class ListTools {
     /**
      * Completes task
      */
-    private static void completeTask() {
+    private void completeTask() {
 
         // if there are no tasks
         if (noTasks()) {
@@ -912,7 +914,7 @@ public class ListTools {
     /**
      * Exits list
      */
-    private static void exit() {
+    private void exit() {
         // print to user
         print("\nExiting list " + Styles.GREEN + l.getName());
         // wait for enter

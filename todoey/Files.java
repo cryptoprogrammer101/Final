@@ -6,60 +6,136 @@
 package todoey;
 
 // import modules
-import java.util.*;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Create Files class
  */
 public class Files {
 
+    // create fields
+    private String fname;
+    private ArrayList<List> lists;
+
+    /**
+     * Create constructor
+     * @param fname Filename
+     * @param lists Lists to save
+     */
+    public Files(String fname, ArrayList<List> lists) {
+        this.fname = fname;
+        this.lists = lists;
+    }
+
+    /**
+     * Create constructor
+     * @param fname Filename
+     */
+    public Files(String fname) {
+        this.fname = fname;
+    }
+
+    /**
+     * Return filename
+     * @return Filename
+     */
+    public String getFileName() {
+        return this.fname;
+    }
+
     /**
      * Checks if file exists
-     * @param fname Filename
      * @return If file exists
      */
-    public static boolean fileExists(String fname) {
-        return true;
+    public boolean fileExists() {
+
+        // create file
+        File f = new File(this.fname);
+
+        // return if file exists
+        return f.exists();
+
     }
+
 
     /**
      * Save lists
-     * @param fname Filename
-     * @param lists Lists
      */
-    private static void saveLists(String fname, ArrayList<List> lists) {
+    public void saveLists() {
+
+        // try
+        try {
+            // create File object
+            File f = new File(fname);
+
+            // create new file
+            f.createNewFile();
+
+            // create FileWriter object
+            FileWriter fw = new FileWriter(f);
+
+            // clear file
+            fw.write("");
+
+            
+
+        // if error, do nothing
+        } catch (IOException ignore) {
+
+        }
 
     }
-
     /**
      * Load lists
-     * @param fname Filename
      * @return ArrayList of Lists
      */
-    public static ArrayList<List> loadLists(String fname) {
-        return new ArrayList<List>();
+    public ArrayList<List> loadLists() {
+        return new ArrayList<>();
     }
 
     /**
-     * Print files
+     * Returns file names in folder
+     * @return Filenames
      */
-    public static void printFiles() {
-
+    public static String[] getFileNames() {
+        return new String[1];
     }
 
     /**
      * Checks if file is formatted properly
-     * @param fname Filename
      * @return If file is formatted properly
      */
-    public static boolean formatted(String fname) {
-        return true;
+    public boolean formatted() {
+
+        // split text by .txt
+        String[] split = fname.split(".txt");
+
+        // put filename together
+        String joined = String.join("", split);
+
+        // split text by spaces
+        split = joined.split(" ");
+
+        // put filename together
+        joined = String.join("", split) + ".txt";
+
+        // update filename
+        setFileName(joined);
+
+        // return true if proper length
+        return fname.length() > 5 && fname.length() < 32;
+
     }
 
     /**
-     * Save lists
-     * @param fname filename
+     * Set filename
+     * @param fname New filename
      */
-    public static void saveLists(String fname) {
+    public void setFileName(String fname) {
+        this.fname = fname;
     }
 }
