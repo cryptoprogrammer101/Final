@@ -61,11 +61,10 @@ public class Files {
 
     }
 
-
     /**
-     * Save lists
+     * Create file
      */
-    public void saveLists() {
+    public void createFile() {
 
         // try
         try {
@@ -75,17 +74,58 @@ public class Files {
             // create new file
             f.createNewFile();
 
-            // create FileWriter object
-            FileWriter fw = new FileWriter(f);
+        // if error, do nothing
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    /**
+     * Save lists
+     */
+    public void saveLists() {
+
+        // try
+        try {
+
+            // create file
+            createFile();
+
+            // create FileWriter object to clear file
+            FileWriter clear = new FileWriter(fname);
 
             // clear file
-            fw.write("");
+            clear.write("");
 
-            
+            // create FileWriter object to append to file
+            FileWriter w = new FileWriter(fname, true);
+
+            // loop through lists
+            for (List l : lists) {
+                // write list to file
+                w.write(l.getName() + " " + l.isPinned() + "\n");
+
+
+                // loop through tasks
+                for (Task t : l.getTasks()) {
+                    // write task to file
+                    w.write(t.getName() + " " + t.isCompleted() + " " + t.isStarred() + ",");
+                }
+
+                // write newline
+                w.write("\n\n");
+
+            }
+
+            // close file
+            w.close();
 
         // if error, do nothing
-        } catch (IOException ignore) {
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

@@ -80,7 +80,7 @@ public class ListTools {
                     break;
 
                 // if user entered delete task
-                case "r":
+                case "d":
                     deleteTask();
                     break;
 
@@ -213,7 +213,7 @@ public class ListTools {
         menuPrint("M", "Print menu");
         menuPrint("P", "Print tasks");
         menuPrint("C", "Create task");
-        menuPrint("R", "Delete task");
+        menuPrint("D", "Delete task");
         menuPrint("L", "Add color to task");
         menuPrint("S", "Star task");
         menuPrint("O", "Complete task");

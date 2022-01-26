@@ -626,6 +626,33 @@ public class Main {
 	 */
 	private static void saveLists() {
 
+		System.out.println(System.getProperty("user.dir"));
+
+		ArrayList<Task> a1 = new ArrayList<>();
+
+		a1.add(new Task("hi"));
+		a1.add(new Task("hello"));
+		a1.add(new Task("wow"));
+		a1.add(new Task("woah"));
+
+		List l1 = new List("cool", false, a1);
+
+		ArrayList<Task> a2 = new ArrayList<>();
+
+		a2.add(new Task("but"));
+		a2.add(new Task("they"));
+		a2.add(new Task("great"));
+		a2.add(new Task("nice"));
+
+		List l2 = new List("another", false, a2);
+
+		ArrayList<List> a3 = new ArrayList<>();
+
+		a3.add(l1);
+		a3.add(l2);
+
+		lists = a3;
+
 		// if there are no lists
 		if (noLists()) {
 			// stop
@@ -633,7 +660,7 @@ public class Main {
 		}
 
 		// create empty user input
-		String fname = "";
+		String fname = "hi.txt";
 
 		// create Files object
 		Files f = new Files(fname, lists);
