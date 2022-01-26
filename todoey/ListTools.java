@@ -245,7 +245,7 @@ public class ListTools {
     }
 
     /**
-     * Checks if task is instance of ColorTask
+     * Checks if task is instance of {@link ColorTask}
      * @param t Task to check
      * @return If task is colored
      */
@@ -256,6 +256,20 @@ public class ListTools {
 
         // compare to ColorTask class name
         return classname.equals(ColorTask.CLASSNAME);
+    }
+
+    /**
+     * Checks if task is instance of {@link DateTask}
+     * @param t Task to check
+     * @return If task has date
+     */
+    public static boolean hasDate(Task t) {
+
+        // get Task class
+        String classname = t.getClass().getName();
+
+        // compare to ColorTask class name
+        return classname.equals(DateTask.CLASSNAME);
     }
 
     /**
@@ -295,6 +309,8 @@ public class ListTools {
             // print task number
             print((i + 1) + ". ");
 
+            System.out.println(hasDate(t));
+
             // if task has color
             if (isColored(t)) {
 
@@ -308,6 +324,17 @@ public class ListTools {
 
             // print task name
             print(t.getName());
+
+            // if task has date
+            if (hasDate(t)) {
+
+                // convert to ColorTask
+                DateTask dateTask = (DateTask) t;
+
+                // print color
+                System.out.print(" - " + dateTask.getDate() + " ");
+
+            }
 
             // if task is starred
             if (t.isStarred()) {
@@ -519,24 +546,21 @@ public class ListTools {
         // wait for enter
         pause("\nTask \"" + t.getName() + "\" selected");
 
-        // create empty user input
-        String usr = "";
-
         // create color
-        String color = Styles.RESET;
+        String color = "";
 
-        // while user input is invalid
-        while (usr.equals("")) {
+        // while color does nto exist
+        while (color.equals("")) {
 
             printTasks();
 
             println();
 
             // get user input
-            usr = inp("New color of \"" + t.getName() + "\" (\"e\" to exit): ");
+            color = inp("New color of \"" + t.getName() + "\" (\"e\" to exit): ");
 
             // if name is empty
-            if (usr.equals("")) {
+            if (color.equals("")) {
                 // beep
                 Styles.beep();
                 // wait for enter key
@@ -546,7 +570,7 @@ public class ListTools {
             }
 
             // if name is "e" (exit code)
-            String lowercase = usr.toLowerCase();
+            String lowercase = color.toLowerCase();
             if (lowercase.equals("e")) {
                 // beep
                 Styles.beep();
@@ -654,9 +678,9 @@ public class ListTools {
                     // beep
                     Styles.beep();
                     // wait for enter
-                    pause("\nInvalid input. Color \"" + usr + "\" not recognized");
+                    pause("\nInvalid input. Color \"" + color + "\" not recognized");
                     // clear user input
-                    usr = "";
+                    color = "";
                     break;
 
             }
@@ -675,6 +699,77 @@ public class ListTools {
     }
 
     /**
+     * Checks if date is formatted correctly
+     * @param d Date
+     * @return If date is properly formatted
+     */
+    private static boolean formattedDate(String d) {
+
+        // if date is not proper length
+        if (d.length() < 3 || d.length() > 5) {
+            // return false
+            return false;
+        }
+
+        // split text by /
+        String[] arr = d.split("/");
+
+        // if array is not proper length
+        if (arr.length != 2) {
+            // return false
+            return false;
+        }
+
+        // retrieve month
+        String month = arr[0];
+
+        // retrieve day
+        String day = arr[1];
+
+        // create month number
+        int monthNum = -1;
+
+        // create day number
+        int dayNum = -1;
+
+        // try
+        try {
+            // convert month to integer
+            monthNum = Integer.parseInt(month);
+
+        // if there is an error
+        } catch (NumberFormatException e) {
+            // do nothing
+        }
+
+        // try
+        try {
+            // convert day to integer
+            dayNum = Integer.parseInt(day);
+
+        // if there is an error
+        } catch (NumberFormatException e) {
+            // do nothing
+        }
+
+        // if input was invalid
+        if (monthNum < 1 || dayNum < 1) {
+            // return false
+            return false;
+        }
+
+        // if input too high
+        if (monthNum > 12 || dayNum > 31) {
+            // return false
+            return false;
+        }
+
+        // return true
+        return true;
+
+    }
+
+    /**
      * Adds date
      */
     private static void addDate() {
@@ -684,6 +779,124 @@ public class ListTools {
             // stop
             return;
         }
+
+        // create empty user input
+        String name = "";
+
+        // define index of task
+        int i = 0;
+
+        // while user input is invalid
+        while (name.equals("")) {
+
+            printTasks();
+
+            println();
+
+            // get input
+            name = inp("Add date to task with name (\"e\" to exit): ");
+
+            // if name is empty
+            if (name.equals("")) {
+                // beep
+                Styles.beep();
+                // wait for enter key
+                pause("\nNull task name");
+                // restart
+                continue;
+            }
+
+            // if name is "e" (exit code)
+            String lowercase = name.toLowerCase();
+            if (lowercase.equals("e")) {
+                // beep
+                Styles.beep();
+                // print to user
+                pause("\nExiting task");
+                // exit task
+                return;
+            }
+
+            // get index of task
+            i = getIndexByName(name);
+
+            // if name was not found in task
+            if (i < 0) {
+                // beep
+                Styles.beep();
+                // wait for enter
+                pause("\nInvalid input. Task \"" + name + "\" does not exist.\nMake sure to check spelling");
+                // clear user input
+                name = "";
+                // restart
+                continue;
+
+            }
+
+        }
+
+        // retrieve task
+        Task t = tasks.get(i);
+
+        // wait for enter
+        pause("\nTask \"" + t.getName() + "\" selected");
+
+        // create date
+        String date = "";
+
+        // while user input is invalid
+        while (date.equals("")) {
+
+            printTasks();
+
+            println();
+
+            // get user input
+            date = inp("New date of \"" + t.getName() + "\" (\"e\" to exit): ");
+
+            // if name is empty
+            if (date.equals("")) {
+                // beep
+                Styles.beep();
+                // wait for enter key
+                pause("\nNull date");
+                // restart
+                continue;
+            }
+
+            // if name is "e" (exit code)
+            String lowercase = date.toLowerCase();
+            if (lowercase.equals("e")) {
+                // beep
+                Styles.beep();
+                // print to user
+                pause("\nExiting task");
+                // exit task
+                return;
+            }
+
+            // if date is not formatted correctly
+            if(!formattedDate(lowercase)) {
+                // beep
+                Styles.beep();
+                // wait for enter
+                pause("\nInvalid input. Date \"" + date + "\" not formatted correctly.\nMake sure to format as: mm/dd");
+                // clear user input
+                date = "";
+                // restart
+                continue;
+            }
+
+        }
+
+        // update date
+        DateTask newTask = new DateTask(t, date);
+
+        // replace old task with new one
+        tasks.set(i, newTask);
+
+        // wait for enter
+        pause("\nAdded date \"" + newTask.getDate() + "\" to task \"" + newTask.getName() + "\"");
 
     }
 

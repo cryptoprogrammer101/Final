@@ -342,6 +342,20 @@ public class Main {
 	}
 
 	/**
+	 * Checks if task is instance of {@link DateTask}
+	 * @param t Task to check
+	 * @return If task has date
+	 */
+	public static boolean hasDate(Task t) {
+
+		// get Task class
+		String classname = t.getClass().getName();
+
+		// compare to ColorTask class name
+		return classname.equals(DateTask.CLASSNAME);
+	}
+
+	/**
 	 * Prints {@link #lists}
 	 */
 	private static void printLists() {
@@ -407,6 +421,17 @@ public class Main {
 
 				// print task name
 				print(t.getName());
+
+				// if task has date
+				if (hasDate(t)) {
+
+					// convert to ColorTask
+					DateTask colorTask = (DateTask) t;
+
+					// print color
+					System.out.print(" - " + colorTask.getDate() + " ");
+
+				}
 
 				// if task is starred
 				if (t.isStarred()) {

@@ -30,7 +30,8 @@ public class Styles {
     public static final String BLUE = "\033[0;96m";
 
 
-    public static final String CLS = "\033[H\033[2J";
+//    public static final String CLS = "\033[H\033[2J";
+    public static final String CLS = "";
     public static final String BEEP = "\007";
 
     public static final String PURPLE = "\u001B[34m";
