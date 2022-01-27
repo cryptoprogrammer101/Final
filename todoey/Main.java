@@ -232,18 +232,39 @@ public class Main {
 
 	}
 
+
 	/**
-	 * Prints files in folder
+	 * Prints files
+	 * @param filesObj Files object
 	 */
-	public static void printFiles() {
+	public static void printFiles(Files filesObj) {
 
 		// retrieve filenames
-		String[] filenames = Files.getFileNames();
+		ArrayList<String> files = filesObj.getFileNames();
 
 		// clear screen
 		Styles.cls();
 
-		println();
+		// print to user
+		println("Files:\n");
+
+		// if there are no files
+		if (files.size() == 0) {
+			println("No existing files.\n");
+		}
+
+		// loop through files
+		for (int i = 0; i < files.size(); i++) {
+
+			// get file
+			String f = files.get(i);
+
+			// print file name
+			print((i + 1) + ". " + f);
+
+			println("\n");
+
+		}
 
 	}
 
@@ -262,10 +283,13 @@ public class Main {
 		while (fname.equals("")) {
 
 			// print files in folder
-			printFiles();
+			printFiles(f);
 
 			// get input
 			fname = inp("Name of database file (\"e\" to exit): ");
+
+			// convert to lowercase
+			fname = fname.toLowerCase();
 
 			// update filename
 			f.setFileName(fname);
@@ -281,8 +305,7 @@ public class Main {
 			}
 
 			// if name is "e" (exit code)
-			String lowercase = fname.toLowerCase();
-			if (lowercase.equals("e")) {
+			if (fname.equals("e")) {
 				// beep
 				Styles.beep();
 				// print to user
@@ -299,8 +322,6 @@ public class Main {
 				pause("\nInvalid file name. File \"" + fname + "\" does not exist");
 				// reset user input
 				fname = "";
-				// restart
-				continue;
 			}
 
 		}
@@ -456,13 +477,8 @@ public class Main {
 		// loop through lists
 		for (List l : lists) {
 
-			// loop through tasks
-			for (Task t : l.getTasks()) {
-
-				// increment counter
-				counter++;
-
-			}
+			// increment counter
+			counter += l.getTasks().size();
 
 		}
 
@@ -588,7 +604,7 @@ public class Main {
 				}
 
 				// print name
-				System.out.print(n);
+				print(n);
 
 				// if this is last column
 				if (j + 2 > row.length) {
@@ -607,7 +623,7 @@ public class Main {
 				}
 
 				// print trailing comma
-				System.out.print(",\t");
+				print(",\t");
 
 			}
 
@@ -625,8 +641,6 @@ public class Main {
 	 * Saves lists
 	 */
 	private static void saveLists() {
-
-		System.out.println(System.getProperty("user.dir"));
 
 		ArrayList<Task> a1 = new ArrayList<>();
 
@@ -660,7 +674,7 @@ public class Main {
 		}
 
 		// create empty user input
-		String fname = "hi.txt";
+		String fname = "";
 
 		// create Files object
 		Files f = new Files(fname, lists);
@@ -669,10 +683,13 @@ public class Main {
 		while (fname.equals("")) {
 
 			// print files in folder
-			printFiles();
+			printFiles(f);
 
 			// get input
 			fname = inp("Name of database file to save to (\"e\" to exit): ");
+
+			// convert to lowercase
+			fname = fname.toLowerCase();
 
 			// update filename
 			f.setFileName(fname);
@@ -688,8 +705,7 @@ public class Main {
 			}
 
 			// if name is "e" (exit code)
-			String lowercase = fname.toLowerCase();
-			if (lowercase.equals("e")) {
+			if (fname.equals("e")) {
 				// beep
 				Styles.beep();
 				// print to user
@@ -698,16 +714,14 @@ public class Main {
 				return;
 			}
 
-			// if filename is not properly formatted
-			if (!f.formatted()) {
+			// if filename is not proper length
+			if (!f.format()) {
 				// reset user input
 				fname = "";
 				// beep
 				Styles.beep();
 				// wait for enter
-				pause("\nInvalid file formatting.\nFile must be in format \"filename.txt\"");
-				// restart
-				continue;
+				pause("\nFilename must be between 5 and 30 characters long");
 			}
 
 		}
@@ -846,8 +860,6 @@ public class Main {
 				pause("\nCannot move pinned list " + current.getName());
 				// clear user input
 				name = "";
-				// restart
-				continue;
 			}
 
 		}
@@ -938,8 +950,6 @@ public class Main {
 				pause("\nCannot move pinned list " + current.getName());
 				// clear user input
 				usrI = "";
-				// restart
-				continue;
 			}
 
 		}
@@ -1034,8 +1044,6 @@ public class Main {
 				List l = lists.get(i);
 				// wait for enter
 				pause("\nList " + l.getName() + " already exists");
-				// restart
-				continue;
 			}
 
 		}
@@ -1114,8 +1122,6 @@ public class Main {
 				pause("\nInvalid input. List \"" + name + "\" does not exist.\nMake sure to check spelling");
 				// clear user input
 				name = "";
-				// restart
-				continue;
 
 			}
 
@@ -1202,8 +1208,6 @@ public class Main {
 				pause("\nInvalid input. List \"" + name + "\" does not exist");
 				// clear user input
 				name = "";
-				// restart
-				continue;
 			}
 
 		}
@@ -1286,8 +1290,6 @@ public class Main {
 				print("\nInvalid input. List \"" + name + "\" does not exist");
 				// clear user input
 				name = "";
-				// restart
-				continue;
 			}
 
 		}
@@ -1343,8 +1345,6 @@ public class Main {
 				List current = lists.get(j);
 				// wait for enter
 				pause("\nList " + current.getName() + " already exists");
-				// restart
-				continue;
 			}
 
 		}
@@ -1420,8 +1420,6 @@ public class Main {
 				pause("\nInvalid input. List \"" + name + "\" does not exist");
 				// clear user input
 				name = "";
-				// restart
-				continue;
 			}
 
 		}

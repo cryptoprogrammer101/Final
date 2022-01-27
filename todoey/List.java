@@ -35,7 +35,15 @@ public class List {
    * @param name Name of list
    */
   public List(String name) {
-    this(name, false, new ArrayList<Task>());
+    this(name, false, new ArrayList<>());
+  }
+
+  /**
+   * Add task to tasks
+   * @param t Task to add
+   */
+  public void addTask(Task t) {
+    tasks.add(t);
   }
 
   /**

@@ -255,7 +255,7 @@ public class ListTools {
     }
 
     /**
-     * Prints tasks}
+     * Prints tasks
      */
     private void printTasks() {
 
@@ -309,7 +309,7 @@ public class ListTools {
             if (t.isStarred()) {
 
                 // print star
-                print(/*Styles.YELLOW + */" \u2b50");
+                print(Styles.YELLOW + " \u2b50");
 
             }
 
@@ -325,7 +325,7 @@ public class ListTools {
 
         }
 
-        println();
+        println("\n");
 
     }
 
@@ -396,8 +396,6 @@ public class ListTools {
 
             printTasks();
 
-            println();
-
             // get input
             name = inp("Create task with name (\"e\" to exit): ");
 
@@ -435,8 +433,6 @@ public class ListTools {
                 Task t = tasks.get(i);
                 // wait for enter
                 pause("\nTask \"" + t.getName() + "\" already exists");
-                // restart
-                continue;
             }
 
         }
@@ -474,8 +470,6 @@ public class ListTools {
 
             printTasks();
 
-            println();
-
             // get input
             name = inp("Color task with name (\"e\" to exit): ");
 
@@ -511,9 +505,6 @@ public class ListTools {
                 pause("\nInvalid input. Task \"" + name + "\" does not exist.\nMake sure to check spelling");
                 // clear user input
                 name = "";
-                // restart
-                continue;
-
             }
 
         }
@@ -531,8 +522,6 @@ public class ListTools {
         while (color.equals("")) {
 
             printTasks();
-
-            println();
 
             // get user input
             color = inp("New color of \"" + t.getName() + "\" (\"e\" to exit): ");
@@ -563,17 +552,11 @@ public class ListTools {
 
                 // if user entered red
                 case "red":
-                    // set color to red
-                    color = Styles.RED;
-                    break;
 
-                // if user entered maroon
+                // or if user entered maroon
                 case "maroon":
-                    // set color to red
-                    color = Styles.RED;
-                    break;
 
-                // if user entered orange
+                // or if user entered orange
                 case "orange":
                     // set color to red
                     color = Styles.RED;
@@ -593,11 +576,8 @@ public class ListTools {
 
                 // if user entered blue
                 case "blue":
-                    // set color to blue
-                    color = Styles.BLUE;
-                    break;
 
-                // if user entered cyan
+                // or if user entered cyan
                 case "cyan":
                     // set color to blue
                     color = Styles.BLUE;
@@ -605,17 +585,11 @@ public class ListTools {
 
                 // if user entered indigo
                 case "indigo":
-                    // set color to purple
-                    color = Styles.PURPLE;
-                    break;
 
-                // if user entered purple
+                // or if user entered purple
                 case "purple":
-                    // set color to purple
-                    color = Styles.PURPLE;
-                    break;
 
-                // if user entered violet
+                // or if user entered violet
                 case "violet":
                     // set color to purple
                     color = Styles.PURPLE;
@@ -623,11 +597,8 @@ public class ListTools {
 
                 // if user entered magenta
                 case "magenta":
-                    // set color to pink
-                    color = Styles.PINK;
-                    break;
 
-                // if user entered pink
+                // or if user entered pink
                 case "pink":
                     // set color to pink
                     color = Styles.PINK;
@@ -635,11 +606,8 @@ public class ListTools {
 
                 // if user entered black
                 case "black":
-                    // set color to black
-                    color = Styles.BLACK;
-                    break;
 
-                // if user entered gray
+                // or if user entered gray
                 case "gray":
                     // set color to black
                     color = Styles.BLACK;
@@ -698,8 +666,6 @@ public class ListTools {
 
             printTasks();
 
-            println();
-
             // get input
             name = inp("Delete task with name (\"e\" to exit): ");
 
@@ -735,8 +701,6 @@ public class ListTools {
                 pause("\nInvalid input. Task \"" + name + "\" does not exist.\nMake sure to check spelling");
                 // clear user input
                 name = "";
-                // restart
-                continue;
 
             }
 
@@ -775,8 +739,6 @@ public class ListTools {
 
             printTasks();
 
-            println();
-
             // get input
             name = inp("Star task with name (\"e\" to exit): ");
 
@@ -812,8 +774,6 @@ public class ListTools {
                 pause("\nInvalid input. Task \"" + name + "\" does not exist");
                 // clear user input
                 name = "";
-                // restart
-                continue;
             }
 
         }
@@ -854,8 +814,6 @@ public class ListTools {
 
             printTasks();
 
-            println();
-
             // get input
             name = inp("Complete task with name (\"e\" to exit): ");
 
@@ -891,8 +849,6 @@ public class ListTools {
                 pause("\nInvalid input. Task \"" + name + "\" does not exist");
                 // clear user input
                 name = "";
-                // restart
-                continue;
             }
 
         }
