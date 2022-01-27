@@ -232,6 +232,25 @@ public class Main {
 
 	}
 
+	/**
+	 * Checks if files exists
+	 * @param f Files object
+	 * @return If files exist
+	 */
+	public static boolean noFiles(Files f) {
+
+		// if there are no files
+		if (f.getFileNames().size() == 0) {
+			// beep
+			Styles.beep();
+			// print to user
+			pause("\nNo existing files to load from");
+			return true;
+		}
+
+		return false;
+
+	}
 
 	/**
 	 * Prints files
@@ -278,6 +297,12 @@ public class Main {
 
 		// create Files object
 		Files f = new Files(fname);
+
+		// if there are no files
+		if (noFiles(f)) {
+			// stop
+			return;
+		}
 
 		// while user input is invalid
 		while (fname.equals("")) {
@@ -338,7 +363,7 @@ public class Main {
 		}
 
 		// wait for enter
-		pause("\nLoaded " + lists.size() + " lists from file " + fname + "\"");
+		pause("\nLoaded " + lists.size() + " lists from file \"" + fname + "\"");
 
 	}
 
@@ -817,7 +842,7 @@ public class Main {
 				// beep
 				Styles.beep();
 				// wait for enter
-				pause("\nInvalid input. List " + name +" does not exist");
+				pause("\nInvalid input. List \"" + name + "\" does not exist");
 				// clear user input
 				name = "";
 				// restart
@@ -832,7 +857,7 @@ public class Main {
 				// beep
 				Styles.beep();
 				// wait for enter
-				pause("\nCannot move pinned list " + current.getName());
+				pause("\nCannot move pinned list \"" + current.getName());
 				// clear user input
 				name = "";
 			}
@@ -843,7 +868,7 @@ public class Main {
 		List l = lists.get(i);
 
 		// wait for enter
-		pause("\nList " + l.getName() + " selected");
+		pause("\nList \"" + l.getName() + "\" selected");
 
 		// create empty user input
 		String usrI = "";
@@ -857,7 +882,7 @@ public class Main {
 			printLists();
 
 			// get input
-			usrI = inp("Move list " + l.getName() + " to index: (\"e\" to exit, index 1 = first element): ");
+			usrI = inp("Move list \"" + l.getName() + "\" to index: (\"e\" to exit, index 1 = first element): ");
 
 			// if name is empty
 			if (usrI.equals("")) {
@@ -965,7 +990,7 @@ public class Main {
 		lists.set(newI, l);
 
 		// wait for enter
-		pause("\nMoved list " + l.getName() + " to index " + (newI + 1));
+		pause("\nMoved list \"" + l.getName() + "\" to index " + (newI + 1));
 
 	}
 
@@ -1018,7 +1043,7 @@ public class Main {
 				// retrieve name
 				List l = lists.get(i);
 				// wait for enter
-				pause("\nList " + l.getName() + " already exists");
+				pause("\nList \"" + l.getName() + "\" already exists");
 			}
 
 		}
@@ -1273,7 +1298,7 @@ public class Main {
 		List l = lists.get(i);
 
 		// wait for enter
-		pause("\nList " + l.getName() + " selected");
+		pause("\nList \"" + l.getName() + "\" selected");
 
 		// create new empty user input
 		String newName = "";
@@ -1284,7 +1309,7 @@ public class Main {
 			printLists();
 
 			// get input
-			newName = inp("New name for list " + l.getName() + " (\"e\" to exit): ");
+			newName = inp("New name for list \"" + l.getName() + "\" (\"e\" to exit): ");
 
 			// if name is empty
 			if (newName.equals("")) {

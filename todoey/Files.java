@@ -27,7 +27,7 @@ public class Files {
     private final String DIVIDER = "__________";
 
     // define text file extension
-    private final String EXTENSION = ".TXT";
+    private final String EXTENSION = ".txt";
 
     // define space
     private final String SPACE = " ";
